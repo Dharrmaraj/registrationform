@@ -1,0 +1,179 @@
+<div>
+<mat-horizontal-stepper #stepper>
+    <ng-template matStepperIcon="edit">
+        <mat-icon>done</mat-icon>
+      </ng-template>
+
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Personal Details</ng-template>
+          <div class="row align-form">
+            <div class="col-md-6 col-sm-12">
+              <h3 class="font-class">Add your personal details</h3>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+              
+              <mat-card class="example-card">
+                <div class="form-group">
+                  <label for="fullname">Full Name</label>
+                  <input type="text" class="form-control"   name="fullname" formControlName="fullname" placeholder="Full Name">
+                </div>
+
+                <div class="form-group">
+                  <label for="Gender">Gender</label>
+                    <div class="radio-toolbar" >
+                      <input type="radio" id="radioMale" name="gender" formControlName="gender" [value]=1>
+                      <label for="radioMale">Male</label>
+                  
+                      <input type="radio" id="radioFemale" name="gender" formControlName="gender" [value]=2>
+                      <label for="radioFemale">Female</label>
+                  
+                      <input type="radio" id="radioOther" name="gender" formControlName="gender" [value]=3>
+                      <label for="radioOther">Other</label> 
+                    </div>
+                </div>    
+
+                <div class="">
+                  
+                  <div fxLayoutAlign="center">
+                    <mat-select-country appearance="outline"
+                                        label="Country"
+                                        class="className"
+                                        formControlName="country"
+                                       
+                                        (onCountrySelected)="onCountrySelected($event)">
+
+                                        
+                    </mat-select-country >
+
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <select name="state" class="form-control" formControlName="state">
+                    <option value="">-Select State-</option>
+                    <option *ngFor="let state of stateInfo; let j = index" value="{{j}}">{{state.StateName}}</option>
+                  </select>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">{{ callingCode }} </span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="phone" name="phone" aria-label="phone" (keypress)="keyPress($event)" maxlength="15" aria-describedby="basic-addon1" style="height:38px;">
+                   </div>
+                </div>
+
+              <div>
+                <!-- <button mat-button matStepperNext>Next</button> -->
+                <button type="button" class="btn btn-primary btn-sm btn-block" matStepperNext [disabled]="!firstFormGroup.valid">Next</button>
+              </div>  
+            </mat-card>
+            <p class="text-center mt-3">Already have an account? <span class="text-primary">Log In</span></p>
+            </div>
+          </div>         
+            
+        
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Company Details</ng-template>
+        <div class="row align-form">
+          <div class="col-md-6 col-sm-12"> 
+            <h3 class="font-class">Add your company details</h3>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+            <mat-card class="example-card">
+              <div class="wrapper">
+                <img [src]="imageSrc || '../../assets/39-395628_continue-logo-gallery-charles-company-logo.png'" style="height: 100px;width: 100px;border-radius: 50%;" class="image-upload" alt="">
+                <label for="upload-photo" class="text-primary company-label">Upload your company logo</label>
+                <input type="file" name="photo" id="upload-photo" formControlName="upload" accept="image/*" (change)="onSelectFile($event)" style="display:none;"/>
+              </div> 
+              <div class="form-group mt-3">
+                <label for="comapny_name">Company Name</label>
+                <input type="text" class="form-control" formControlName="comapny_name"  name="comapny_name" placeholder="Enter Company Name">
+              </div>
+
+              <div class="form-group">
+                <label for="emailid">Email Id</label>
+                <input type="email" class="form-control"  formControlName="emailid" name="emailid" placeholder="abc@gmail.com">
+              </div>
+
+              <div class="form-group">
+                <label for="job_title">Job Title</label>
+                <input type="text" class="form-control"  formControlName="job_title" name="job_title" placeholder="Enter Job Title">
+              </div>
+
+              <div class="form-group">
+                <label for="years_of_experience">Years of Experience</label>
+                <input type="text" class="form-control"  formControlName="years_of_experience" name="years_of_experience" (keypress)="keyPress($event)" maxlength="2" placeholder="Years of Experience">
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" formControlName="termsconditions">
+                <label class="form-check-label" for="flexCheckDefault">
+                  I accept the <span class="text-primary">Terms and Conditions</span>
+                </label>
+              </div>
+            
+            <div class="row mt-2">
+              <!-- <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button> -->
+              <div class="col-md-4 col-sm-6">
+              <button type="button" class="btn btn-light btn-sm btn-block" matStepperPrevious>Back</button>
+              </div>
+              <div class="col-md-8 col-sm-6">
+                <button type="button" class="btn btn-primary btn-sm btn-block" matStepperNext  [disabled]="!secondFormGroup.valid">Send OTP</button>
+              </div>
+              
+            </div>
+          </mat-card>
+          </div>
+        </div>  
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Email Verification</ng-template>
+          <div class="row align-form">
+            <div class="col-md-6 col-sm-12"> 
+              <h3 class="font-class">Enter your OTP</h3>
+              <p>For your security, we need to verify your identity. We sent a 5-digit code to <br>name@domain.com. Please enter it below.</p>
+
+
+              <mat-card class="example-card">
+                <label for="enteryourcode" class="form-check-code-label">Enter your code</label>
+                <div id="form">
+                    <code-input [isCodeHidden]="false"
+                    [isNonDigitsCode]="false"
+                    [codeLength]="5"
+                    
+                    (codeChanged)="onCodeChanged($event)"
+                    (codeCompleted)="onCodeCompleted($event)">
+                    </code-input>
+                </div>
+              
+                <div class="row mt-3">
+                  <!-- <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button> -->
+                  <div class="col-md-4 col-sm-6">
+                  <button type="button" class="btn btn-light btn-sm btn-block" matStepperPrevious>Back</button>
+                  </div>
+                  <div class="col-md-8 col-sm-6">
+                    <button type="button" class="btn btn-primary btn-sm btn-block" matStepperNext [disabled]="!codeVaild" (click)="submitAll()">Verify</button>
+                  </div>
+                  
+                </div>
+                <hr>
+                <p class="text-center">Didn't receive the email? Check your spam filter for an email</p>
+                <p class="text-center">from <span class="text-primary">name@domain.com</span></p>
+            </mat-card>
+            </div>
+          </div>  
+        </form>
+      </mat-step>
+  </mat-horizontal-stepper>
+</div>  
